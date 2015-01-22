@@ -12,26 +12,102 @@ open Android.OS
 open Android.Runtime
 open Android.Views
 open Android.Widget
+[<Measure>]
+type X
+[<Measure>]
+type Y
+
+type CellState = 
+    |Closed
+    |Entrance
+    |HasPlayer
+    |Explored
+    |Exit
+
 type Encounter =
     | Monster
     | Treasure
+type GridCell = Button
+
 [<Activity (Label = "Dungeon")>]
 type Dungeon() =
   inherit Activity()
+  let mutable posX,posY = 1<X>,1<Y>
+  let measuredRange min (max) :int<'a> list = 
+      [ min / 1<_> .. max / 1<_>]
+      |> List.map( fun f -> LanguagePrimitives.Int32WithMeasure f * LanguagePrimitives.GenericOne)
+  static member MaxX = 5<X>
+  static member MaxY = 5<Y>
+  static member Range<[<Measure>] 'a> (min:int<'a>,max:int<'a>) = 
+      [ int min .. int max]
+  static member MeasuredRange<[<Measure>]'a> (min:int<'a>,max) :int<'a> list = 
+      Dungeon.Range (min,max)
+      |> List.map (fun f -> LanguagePrimitives.Int32WithMeasure<'a> f )
+  member this.CellText x y state :string = 
+    let stateRep = 
+        if (x,y) = (posX,posY) then "P" else
+        match state with
+           |Some HasPlayer -> "P"
+           |Some Entrance -> "_"
+           |Some Exit -> "X"
+           |Some Explored -> String.Empty
+           | _ -> "C"
 
+    stateRep + ":"+ x.ToString() + "," + y.ToString()
+
+  member private this.RegenRow (y, row:TableRow):unit =
+      let rawY = int y
+      let view = row.GetChildAt rawY :?> GridCell
+      for x in Dungeon.MeasuredRange<X>(LanguagePrimitives.GenericZero,Dungeon.MaxX) do
+        let rawX = int x
+        let text = this.CellText x y (if posX = x && posY=y then Some CellState.HasPlayer else Some CellState.Closed)
+        view.Text <- text
+ 
+
+  member private this.InitializeTable (tbl:TableLayout) =
+    let doRegen = tbl.ChildCount <> 0
+        
+    for y in Dungeon.MeasuredRange<Y> (LanguagePrimitives.GenericZero,Dungeon.MaxY - 1<Y>) do
+
+        let row = if doRegen then 
+                    tbl.GetChildAt( int y ) :?> TableRow 
+                    else 
+                        let r = new TableRow(this)
+                        tbl.AddView(r)
+                        r
+        if row = null then failwith "row did not return"
+        if row.ChildCount > 0 then
+            for x in Dungeon.MeasuredRange<X> (LanguagePrimitives.GenericZero, Dungeon.MaxX-1<X>) do
+                //reinitialize table for new floor
+                let text = this.CellText x y None
+                let view:GridCell = this.getView x y
+                view.Text <- text
+        else
+            this.InitializeRow(y,row)
+  member private this.InitializeRow (y,row:TableRow) = 
+    for x in Dungeon.MeasuredRange<X>(LanguagePrimitives.GenericZero,Dungeon.MaxX) do
+        let view = new GridCell(context = this,Text = this.CellText x y (if posX = x && posY=y then Some CellState.HasPlayer else None))
+        row.AddView view
+
+  member private this.getStartLocation () = 
+      0,0
+
+  member private this.getRow y = 
+      let table = this.FindViewById<TableLayout>(Resource_Id.tableLayout1)
+      table.GetChildAt y :?> TableRow
+
+  member private this.getView x y = 
+      let rawY = int y
+      let rawX = int x
+      let row = this.getRow rawY
+      row.GetChildAt rawX :?> GridCell
+  
   override this.OnCreate(bundle) =
     base.OnCreate (bundle)
+
     // Create your application here
     this.SetContentView(Resource_Layout.Dungeon)
     let table = this.FindViewById<TableLayout>(Resource_Id.tableLayout1)
-    for y in [0..table.ChildCount-1] do
-        let row = table.GetChildAt(y) :?> TableRow
-        if row.ChildCount > 0 then
-            for x in [0 .. row.ChildCount-1] do
-                ()
-        else
-            for x in [0..4] do
-                let view = new Button(context =this,Text= x.ToString()+","+y.ToString())
-                row.AddView( view)
+    this.InitializeTable(table)
 
 

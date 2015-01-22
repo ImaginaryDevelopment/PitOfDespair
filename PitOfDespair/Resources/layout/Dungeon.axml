@@ -9,7 +9,7 @@
         p1:layout_height="wrap_content"
         p1:id="@+id/linearLayout1">
         <ImageView
-            p1:src="@android:drawable/ic_menu_gallery"
+            p1:src="@drawable/Icon"
             p1:layout_width="match_parent"
             p1:layout_height="wrap_content"
             p1:id="@+id/imagePortrait" />
@@ -33,25 +33,5 @@
         p1:layout_width="match_parent"
         p1:layout_height="match_parent"
         p1:layout_toRightOf="@id/linearLayout1"
-        p1:id="@+id/tableLayout1">
-        <TableRow
-            p1:id="@+id/tableRow1">
-        </TableRow>
-        <TableRow
-            p1:id="@+id/tableRow2">
-        </TableRow>
-        <TableRow
-            p1:minWidth="25px"
-            p1:minHeight="25px"
-            p1:id="@+id/tableRow5">
-        </TableRow>
-        <TableRow
-            p1:minWidth="25px"
-            p1:minHeight="25px"
-            p1:id="@+id/tableRow4">
-        </TableRow>
-        <TableRow
-            p1:id="@+id/tableRow3">
-        </TableRow>
-    </TableLayout>
+        p1:id="@+id/tableLayout1" />
 </RelativeLayout>

@@ -23,10 +23,10 @@ namespace PitOfDespair
     #nowarn "51" // address-of operator can occur in the code
     #nowarn "1183" // unused 'this' reference
     
-    exception ReturnException80346cf2eab34f988744e4f5df55fc5c of obj
-    exception ReturnNoneException80346cf2eab34f988744e4f5df55fc5c
+    exception ReturnExceptionfe7b16aebc9c4df4aed96395f93ae1ae of obj
+    exception ReturnNoneExceptionfe7b16aebc9c4df4aed96395f93ae1ae
     [<AutoOpen>]
-    module FuncConvertFinalOverload80346cf2eab34f988744e4f5df55fc5c =
+    module FuncConvertFinalOverloadfe7b16aebc9c4df4aed96395f93ae1ae =
       // This extension member adds to the FuncConvert type and is the last resort member in the method overloading rules. 
       type global.Microsoft.FSharp.Core.FuncConvert with
           /// A utility function to convert function values from tupled to curried form
@@ -65,20 +65,20 @@ namespace PitOfDespair
         
         (* partial *)Resource_Id () =
             static do Android.Runtime.ResourceIdManager.UpdateIdValues()
-            // aapt resource value: 0x7f05000f
-            static member btnAchievements = 2131034127
+            // aapt resource value: 0x7f05000a
+            static member btnAchievements = 2131034122
             
-            // aapt resource value: 0x7f050010
-            static member btnAdventure = 2131034128
+            // aapt resource value: 0x7f05000b
+            static member btnAdventure = 2131034123
             
             // aapt resource value: 0x7f050000
             static member btnAdventurer = 2131034112
             
-            // aapt resource value: 0x7f05000d
-            static member btnChooser = 2131034125
+            // aapt resource value: 0x7f050008
+            static member btnChooser = 2131034120
             
-            // aapt resource value: 0x7f05000e
-            static member btnInventory = 2131034126
+            // aapt resource value: 0x7f050009
+            static member btnInventory = 2131034121
             
             // aapt resource value: 0x7f050001
             static member btnWarrior = 2131034113
@@ -100,21 +100,6 @@ namespace PitOfDespair
             
             // aapt resource value: 0x7f050007
             static member tableLayout1 = 2131034119
-            
-            // aapt resource value: 0x7f050008
-            static member tableRow1 = 2131034120
-            
-            // aapt resource value: 0x7f050009
-            static member tableRow2 = 2131034121
-            
-            // aapt resource value: 0x7f05000c
-            static member tableRow3 = 2131034124
-            
-            // aapt resource value: 0x7f05000b
-            static member tableRow4 = 2131034123
-            
-            // aapt resource value: 0x7f05000a
-            static member tableRow5 = 2131034122
             (* Member of type 'CodeTypeConstructor' is not supported by the CodeDOM provider and was omitted *)
 
 
