@@ -23,10 +23,10 @@ namespace PitOfDespair
     #nowarn "51" // address-of operator can occur in the code
     #nowarn "1183" // unused 'this' reference
     
-    exception ReturnExceptionfe7b16aebc9c4df4aed96395f93ae1ae of obj
-    exception ReturnNoneExceptionfe7b16aebc9c4df4aed96395f93ae1ae
+    exception ReturnExceptionf5001c6cc240415894d086876d5ca383 of obj
+    exception ReturnNoneExceptionf5001c6cc240415894d086876d5ca383
     [<AutoOpen>]
-    module FuncConvertFinalOverloadfe7b16aebc9c4df4aed96395f93ae1ae =
+    module FuncConvertFinalOverloadf5001c6cc240415894d086876d5ca383 =
       // This extension member adds to the FuncConvert type and is the last resort member in the method overloading rules. 
       type global.Microsoft.FSharp.Core.FuncConvert with
           /// A utility function to convert function values from tupled to curried form

@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:p1="http://schemas.android.com/apk/res/android"
-    p1:layout_width="match_parent"
-    p1:layout_height="match_parent"
-    p1:id="@+id/relativeLayout1">
+<ScrollView xmlns:p="http://schemas.android.com/apk/res/android"
+    p:layout_width="match_parent"
+    p:layout_height="match_parent"
+    p:id="@+id/relativeLayout1">
     <LinearLayout
-        p1:orientation="vertical"
-        p1:layout_width="wrap_content"
-        p1:layout_height="wrap_content"
-        p1:id="@+id/linearLayout1">
+        p:orientation="vertical"
+        p:layout_width="wrap_content"
+        p:layout_height="wrap_content"
+        p:id="@+id/linearLayout1">
         <ImageView
-            p1:src="@drawable/Icon"
-            p1:layout_width="match_parent"
-            p1:layout_height="wrap_content"
-            p1:id="@+id/imagePortrait" />
+            p:src="@drawable/Icon"
+            p:layout_width="match_parent"
+            p:layout_height="wrap_content"
+            p:id="@+id/imagePortrait" />
         <EditText
-            p1:id="@+id/editText1"
-            p1:layout_width="match_parent"
-            p1:layout_height="wrap_content"
-            p1:text="Yay text"
-            p1:editable="false" />
+            p:id="@+id/editText1"
+            p:layout_width="match_parent"
+            p:layout_height="wrap_content"
+            p:text="Yay text"
+            p:editable="false" />
         <EditText
-            p1:inputType="textMultiLine"
-            p1:layout_width="match_parent"
-            p1:layout_height="wrap_content"
-            p1:id="@+id/editText2"
-            p1:text="multi-text"
-            p1:editable="false" />
+            p:inputType="textMultiLine"
+            p:layout_width="match_parent"
+            p:layout_height="wrap_content"
+            p:id="@+id/editText2"
+            p:text="multi-text"
+            p:editable="false" />
+        <TableLayout
+            p:minWidth="400px"
+            p:minHeight="400px"
+            p:layout_width="wrap_content"
+            p:layout_height="wrap_content"
+            p:id="@+id/tableLayout1"
+            p:scrollbars="horizontal" />
     </LinearLayout>
-    <TableLayout
-        p1:minWidth="25px"
-        p1:minHeight="25px"
-        p1:layout_width="match_parent"
-        p1:layout_height="match_parent"
-        p1:layout_toRightOf="@id/linearLayout1"
-        p1:id="@+id/tableLayout1" />
-</RelativeLayout>
+</ScrollView>

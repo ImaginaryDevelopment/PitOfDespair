@@ -28,6 +28,9 @@ type Encounter =
     | Monster
     | Treasure
 type GridCell = Button
+type GridCoord<[<Measure>]'a> = int<'a>
+type GridX = GridCoord<X>
+type GridY = GridCoord<Y>
 
 [<Activity (Label = "Dungeon")>]
 type Dungeon() =
@@ -40,7 +43,7 @@ type Dungeon() =
   static member MaxY = 5<Y>
   static member Range<[<Measure>] 'a> (min:int<'a>,max:int<'a>) = 
       [ int min .. int max]
-  static member MeasuredRange<[<Measure>]'a> (min:int<'a>,max) :int<'a> list = 
+  static member MeasuredRange<[<Measure>]'a> (min:int<'a>) max :int<'a> list = 
       Dungeon.Range (min,max)
       |> List.map (fun f -> LanguagePrimitives.Int32WithMeasure<'a> f )
   member this.CellText x y state :string = 
@@ -58,7 +61,7 @@ type Dungeon() =
   member private this.RegenRow (y, row:TableRow):unit =
       let rawY = int y
       let view = row.GetChildAt rawY :?> GridCell
-      for x in Dungeon.MeasuredRange<X>(LanguagePrimitives.GenericZero,Dungeon.MaxX) do
+      for x in Dungeon.MeasuredRange 0<X> (Dungeon.MaxX - 1<X>) do
         let rawX = int x
         let text = this.CellText x y (if posX = x && posY=y then Some CellState.HasPlayer else Some CellState.Closed)
         view.Text <- text
@@ -66,8 +69,8 @@ type Dungeon() =
 
   member private this.InitializeTable (tbl:TableLayout) =
     let doRegen = tbl.ChildCount <> 0
-        
-    for y in Dungeon.MeasuredRange<Y> (LanguagePrimitives.GenericZero,Dungeon.MaxY - 1<Y>) do
+    let maxY = if doRegen then tbl.ChildCount * 1<Y> else Dungeon.MaxY
+    for y in Dungeon.MeasuredRange<Y> LanguagePrimitives.GenericZero (maxY - 1<Y>) do
 
         let row = if doRegen then 
                     tbl.GetChildAt( int y ) :?> TableRow 
@@ -76,8 +79,9 @@ type Dungeon() =
                         tbl.AddView(r)
                         r
         if row = null then failwith "row did not return"
+        let maxX = if row.ChildCount = 0 then Dungeon.MaxX else row.ChildCount * 1<X>
         if row.ChildCount > 0 then
-            for x in Dungeon.MeasuredRange<X> (LanguagePrimitives.GenericZero, Dungeon.MaxX-1<X>) do
+            for x in Dungeon.MeasuredRange<X> LanguagePrimitives.GenericZero (maxX - 1<X>) do
                 //reinitialize table for new floor
                 let text = this.CellText x y None
                 let view:GridCell = this.getView x y
@@ -85,7 +89,7 @@ type Dungeon() =
         else
             this.InitializeRow(y,row)
   member private this.InitializeRow (y,row:TableRow) = 
-    for x in Dungeon.MeasuredRange<X>(LanguagePrimitives.GenericZero,Dungeon.MaxX) do
+    for x in Dungeon.MeasuredRange<X> LanguagePrimitives.GenericZero (Dungeon.MaxX - 1<X>) do
         let view = new GridCell(context = this,Text = this.CellText x y (if posX = x && posY=y then Some CellState.HasPlayer else None))
         row.AddView view
 
