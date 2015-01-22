@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hello">Classes</string>
+	<string name="hello2">Hello World2, Click Me!</string>
+	<string name="app_name">Pit Of Despair</string>
+</resources>
