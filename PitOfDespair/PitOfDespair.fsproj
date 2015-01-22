@@ -55,7 +55,11 @@
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.fs" />
     <Compile Include="Properties\AssemblyInfo.fs" />
+    <Compile Include="ClassPicker.fs" />
     <Compile Include="MainActivity.fs" />
+    <Compile Include="Dungeon.fs">
+      <DependentUpon>ClassPicker.fs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

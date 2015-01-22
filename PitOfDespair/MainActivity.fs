@@ -19,20 +19,25 @@ type MainActivity () =
     let mutable characterClass:int = 1
     let changeClass c () = characterClass <- c
     let ignoreArgs f : EventArgs->unit = fun args -> f()
-    let onClick f (btn:Button) = btn.Click.Add f
+    let onClick f (btn:Button) = btn.Click.Add (fun args -> f())
+    let withClick f (btn:Button) = btn.Click.Add f
     member private  this.gotoMain () = 
         this.SetContentView (Resource_Layout.Main)
-        let button = this.FindViewById<Button>(Resource_Id.btnChooser)
-        button.Click.Add (fun args -> this.gotoChooser())
+        let btnChooser = this.FindViewById<Button>(Resource_Id.btnChooser)
+        btnChooser |> onClick this.gotoChooser
+        btnChooser.Text <- characterClass.ToString()
+        
+    override x.OnActivityResult (requestCode,resultCode,data) =
+        if resultCode = Result.Ok then
+            characterClass <- data.GetIntExtra(ClassPicker.Key,characterClass)
+            Diagnostics.Debug.WriteLine("yay activity result was ok")
+            let btnChooser = x.FindViewById<Button>(Resource_Id.btnChooser)
+            btnChooser.Text <- "Class:" + characterClass.ToString()
 
     member private this.gotoChooser () = 
-        //button.Text <- sprintf "%d clicks!" count
-        //count <- count + 1
-        this.SetContentView(Resource_Layout.Classes)
-        this.FindViewById<Button>(Resource_Id.btnWarrior)
-        |> onClick (ignoreArgs <| changeClass 2 >> this.gotoMain)
-        this.FindViewById<Button>(Resource_Id.btnAdventurer)
-        |> onClick (ignoreArgs <| changeClass 1 >> this.gotoMain)
+        let activity = new Intent(this,typeof<ClassPicker>)
+        this.StartActivityForResult(activity,characterClass)
+
     override this.OnCreate (bundle) =
         base.OnCreate (bundle)
         // Set our view from the "main" layout resource

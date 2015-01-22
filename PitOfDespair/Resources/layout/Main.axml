@@ -27,5 +27,6 @@
         android:text="Quit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnExit" />
+        android:id="@+id/btnExit"
+        android:hint="A quitter never wins" />
 </LinearLayout>
