@@ -26,6 +26,12 @@ type MainActivity () =
         let btnChooser = this.FindViewById<Button>(Resource_Id.btnChooser)
         btnChooser |> onClick this.gotoChooser
         btnChooser.Text <- characterClass.ToString()
+        this.FindViewById<Button>(Resource_Id.btnAdventure)
+        |> onClick (fun () -> 
+            let activity = new Intent(this,typeof<Dungeon>)
+            this.StartActivityForResult(activity,0)
+
+        )
         
     override x.OnActivityResult (requestCode,resultCode,data) =
         if resultCode = Result.Ok then

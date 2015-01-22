@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:p1="http://schemas.android.com/apk/res/android"
+    p1:layout_width="match_parent"
+    p1:layout_height="match_parent"
+    p1:id="@+id/relativeLayout1">
+    <LinearLayout
+        p1:orientation="vertical"
+        p1:layout_width="wrap_content"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/linearLayout1">
+        <ImageView
+            p1:src="@android:drawable/ic_menu_gallery"
+            p1:layout_width="match_parent"
+            p1:layout_height="wrap_content"
+            p1:id="@+id/imagePortrait" />
+        <EditText
+            p1:id="@+id/editText1"
+            p1:layout_width="match_parent"
+            p1:layout_height="wrap_content"
+            p1:text="Yay text"
+            p1:editable="false" />
+        <EditText
+            p1:inputType="textMultiLine"
+            p1:layout_width="match_parent"
+            p1:layout_height="wrap_content"
+            p1:id="@+id/editText2"
+            p1:text="multi-text"
+            p1:editable="false" />
+    </LinearLayout>
+    <TableLayout
+        p1:minWidth="25px"
+        p1:minHeight="25px"
+        p1:layout_width="match_parent"
+        p1:layout_height="match_parent"
+        p1:layout_toRightOf="@id/linearLayout1"
+        p1:id="@+id/tableLayout1">
+        <TableRow
+            p1:id="@+id/tableRow1">
+        </TableRow>
+        <TableRow
+            p1:id="@+id/tableRow2">
+        </TableRow>
+        <TableRow
+            p1:minWidth="25px"
+            p1:minHeight="25px"
+            p1:id="@+id/tableRow5">
+        </TableRow>
+        <TableRow
+            p1:minWidth="25px"
+            p1:minHeight="25px"
+            p1:id="@+id/tableRow4">
+        </TableRow>
+        <TableRow
+            p1:id="@+id/tableRow3">
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>
